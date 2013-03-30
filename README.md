@@ -1,4 +1,6 @@
 # NewsBlur Counter
+> **tl;dr** [Download](https://menakite.eu/~anaconda/safari/NewsBlur-Counter/NewsBlur-Counter.safariextz) the extension, go to your _Downloads_ directory & double click on it.
+
 NewsBlur is _a visual feed reader with intelligence_.  See [samuelclay/NewsBlur](https://github.com/samuelclay/NewsBlur).
 
 NewsBlur Counter is a Safari extension (tested on OS X 10.8.3, Safari 6.0.3) to show how many unread NewsBlur stories you have in the toolbar.
@@ -6,6 +8,11 @@ NewsBlur Counter is a Safari extension (tested on OS X 10.8.3, Safari 6.0.3) to 
 By clicking on the toolbar icon, you can easily access the NewsBlur website.
 
 It also makes the "O" keyboard shortcut _actually_ open the original story in a background tab.
+
+## Installation
+You can install from source, by cloning this repository and opening the Extension Builder in Safari.
+
+If you don't even know what a repository is, just download the extension from https://menakite.eu/~anaconda/safari/NewsBlur-Counter/NewsBlur-Counter.safariextz, then open your _Downloads_ directory and double click on _NewsBlur-Counter.safariextz_.  Safari will ask you to confirm.
 
 ## Configuration
 No configuration is required to use this extension.
