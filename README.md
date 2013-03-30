@@ -1,5 +1,5 @@
 # NewsBlur Counter
-NewsBlur is _a visual feed reader with intelligence_.  See samuelclay/NewsBlur.
+NewsBlur is _a visual feed reader with intelligence_.  See [samuelclay/NewsBlur](https://github.com/samuelclay/NewsBlur).
 
 NewsBlur Counter is a Safari extension (tested on OS X 10.8.3, Safari 6.0.3) to show how many unread NewsBlur stories you have in the toolbar.
 
