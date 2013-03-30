@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Roberto Leandrini</string>
+	<key>Builder Version</key>
+	<string>8536.28.10</string>
+	<key>CFBundleDisplayName</key>
+	<string>NewsBlur Counter</string>
+	<key>CFBundleIdentifier</key>
+	<string>eu.menakite.safari.newsblurcounter</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Global Page</key>
+		<string>global.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>nbcounter</string>
+				<key>Identifier</key>
+				<string>nbcounter</string>
+				<key>Image</key>
+				<string>toolbar-icon.png</string>
+				<key>Label</key>
+				<string>NewsBlur Counter</string>
+				<key>Palette Label</key>
+				<string></string>
+				<key>Tool Tip</key>
+				<string>Open the NewsBlur website</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>end.js</string>
+			</array>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>Shows unread NewsBlur stories in the toolbar &amp; makes "O" shortcut actually open a tab in background.</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Update Manifest URL</key>
+	<string>https://raw.github.com/anaconda/NewsBlur-Counter/master/update-manifest.plist</string>
+	<key>Website</key>
+	<string>https://github.com/anaconda/NewsBlur-Counter</string>
+</dict>
+</plist>

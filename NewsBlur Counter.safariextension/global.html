@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NewsBlur Counter</title>
+        <script>
+            function commandHandler(event) {
+                if (event.command === 'nbcounter') {
+                    openUrlInBackground(getSite(), true);
+                }
+            }
+
+            function getSite() {
+                return (safari.extension.settings.useHttps ? 'https' : 'http') + '://' + safari.extension.settings.site;
+            }
+
+            function messageHandler(event) {
+                if (event.name === 'openStoryInBackground') {
+                    openUrlInBackground(event.message, false);
+                }
+            }
+
+	    // This function, slightly refactored, comes from the GReader extension, see http://rafeed.me/safari-extensions/greader/
+            function openUrlInBackground(url, fromToolbar) {
+                if (fromToolbar) {
+                    for (var win in safari.application.browserWindows) {
+                        for (var tab in safari.application.browserWindows[win].tabs) {
+                            if (safari.application.browserWindows[win].tabs[tab].url && /https?:\/\/(dev\.|www\.)?newsblur\.com/.test(safari.application.browserWindows[win].tabs[tab].url)) {
+                                safari.application.browserWindows[win].tabs[tab].url = url;
+                                return;
+                            }
+                        }
+
+                        if (!safari.application.activeBrowserWindow.activeTab.url) {
+                            safari.application.activeBrowserWindow.activeTab.url = url;
+                            return;
+                        }
+                    }
+                }
+
+                safari.application.activeBrowserWindow.openTab('background').url = url;
+            }
+
+            function performValidate(event) {
+                if (event.command === 'nbcounter') {
+                    var count;
+
+                    switch (safari.extension.settings.storiesFilter) {
+                        case 'onlyPositives':
+                            count = unreadStories.ps;
+                            break;
+                        case 'all':
+                            count = unreadStories.ps + unreadStories.nt + unreadStories.ng;
+                            break;
+                        case 'excludeNegatives':
+                            count = unreadStories.ps + unreadStories.nt;
+                            break;
+                    }
+
+                    event.target.badge = count;
+                }
+            }
+
+            function refreshFeeds() {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', getSite() + '/reader/refresh_feeds');
+                xhr.onload = function() {
+                    if (this.status === 200) {
+                        isDownNotified = false;
+                        var data = JSON.parse(xhr.responseText);
+
+                        if (data['authenticated']) {
+                            loginNeededNotified = false;
+                            var feeds = data['feeds'];
+                            var count = {ps: 0, nt: 0, ng: 0};
+
+                            for (var i in feeds) {
+                                count.ps += feeds[i].ps;
+                                count.nt += feeds[i].nt;
+                                count.ng += feeds[i].ng;
+                            }
+
+                            unreadStories = count;
+                            validateToolbarItems();
+                        } else if (!loginNeededNotified) {
+                            loginNeededNotified = sendNotification('login');
+                        }
+                    } else if ((this.status === 502 || this.status === 503 || this.status === 504) && !isDownNotified) {
+                        isDownNotified = sendNotification('down');
+                    }
+                }
+                xhr.onerror = function() {
+                    if (!isDownNotified) {
+                        isDownNotified = sendNotification('down');
+                    }
+                }
+
+                xhr.send();
+            }
+
+            function sendNotification(type) {
+                if (window.Notification) {
+                    var title, body;
+
+                    switch (type) {
+                        case 'down':
+                            title = 'NewsBlur is currently down';
+                            body = "The counter won't update. I'll keep trying!";
+                            break;
+                        case 'login':
+                            title = "You're logged out!";
+                            body = 'Please login for the counter to update.';
+                            break;
+                    }
+
+                    new Notification(title, {body: body}).onclick = function() {
+                        this.close();
+                    };
+                }
+
+                return true;
+            }
+
+            function settingsChanged(event) {
+                switch (event.key) {
+                    case 'storiesFilter':
+                        validateToolbarItems();
+                        break;
+                    case 'updateInterval':
+                        safari.extension.globalPage.contentWindow.clearInterval(updater);
+                        updater = safari.extension.globalPage.contentWindow.setInterval(refreshFeeds, event.newValue);
+                        break;
+                }
+            }
+
+            function validateToolbarItems() {
+                var toolbarItems = safari.extension.toolbarItems;
+                for (var i = 0; i < toolbarItems.length; ++i) {
+                    if (toolbarItems[i].identifier === 'nbcounter') {
+                        toolbarItems[i].validate();
+                    }
+                }
+            }
+
+            var updater = safari.extension.globalPage.contentWindow.setInterval(refreshFeeds, safari.extension.settings.updateInterval);
+            var isDownNotified = false;
+            var loginNeededNotified = false;
+            var unreadStories = {ps: 0, nt: 0, ng: 0};
+
+            safari.application.addEventListener('command', commandHandler, false);
+            safari.application.addEventListener('message', messageHandler, false);
+            safari.application.addEventListener('validate', performValidate, false);
+            safari.extension.settings.addEventListener('change', settingsChanged, false);
+
+            refreshFeeds();
+        </script>
+    </head>
+    <body></body>
+</html>

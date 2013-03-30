@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>DefaultValue</key>
+		<real>300000</real>
+		<key>Key</key>
+		<string>updateInterval</string>
+		<key>MaximumValue</key>
+		<real>3600000</real>
+		<key>Title</key>
+		<string>Update interval</string>
+		<key>Titles</key>
+		<array>
+			<string>1 minute</string>
+			<string>2 minutes</string>
+			<string>5 minutes</string>
+			<string>10 minutes</string>
+			<string>15 minutes</string>
+			<string>30 minutes</string>
+			<string>45 minutes</string>
+			<string>1 hour</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>60000</real>
+			<real>120000</real>
+			<real>300000</real>
+			<real>600000</real>
+			<real>900000</real>
+			<real>1800000</real>
+			<real>2700000</real>
+			<real>3600000</real>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>excludeNegatives</string>
+		<key>Key</key>
+		<string>storiesFilter</string>
+		<key>Title</key>
+		<string>Toolbar counter shows</string>
+		<key>Titles</key>
+		<array>
+			<string>only stories I like</string>
+			<string>all stories</string>
+			<string>all except stories I don't like</string>
+		</array>
+		<key>Type</key>
+		<string>RadioButtons</string>
+		<key>Values</key>
+		<array>
+			<string>onlyPositives</string>
+			<string>all</string>
+			<string>excludeNegatives</string>
+		</array>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Separator</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>newsblur.com</string>
+		<key>Key</key>
+		<string>site</string>
+		<key>Title</key>
+		<string>Access NewsBlur via</string>
+		<key>Titles</key>
+		<array>
+			<string>newsblur.com</string>
+			<string>dev.newsblur.com</string>
+		</array>
+		<key>Type</key>
+		<string>RadioButtons</string>
+		<key>Values</key>
+		<array>
+			<string>newsblur.com</string>
+			<string>dev.newsblur.com</string>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>useHttps</string>
+		<key>Title</key>
+		<string>Use a secure connection (HTTPS)</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+</array>
+</plist>
