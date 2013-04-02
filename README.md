@@ -1,7 +1,7 @@
 # NewsBlur Counter
 > **tl;dr** [Download](https://menakite.eu/~anaconda/safari/NewsBlur-Counter/NewsBlur-Counter.safariextz) the extension, go to your _Downloads_ directory & double click on it.
 
->![How it looks like on your toolbar](https://raw.github.com/anaconda/NewsBlur-Counter/master/Screenshot_toolbar.png "How it looks like on your toolbar")
+>![How it looks like on your toolbar](https://raw.github.com/anaconda/NewsBlur-Counter/master/images/screenshots/toolbar.png "How it looks like on your toolbar")
 
 NewsBlur is _a visual feed reader with intelligence_.  See [samuelclay/NewsBlur](https://github.com/samuelclay/NewsBlur).
 
@@ -26,10 +26,10 @@ You can, however, change the following settings:
 * you can choose to access NewsBlur via newsblur.com or dev.newsblur.com when you click on the toolbar icon.  The former is the production version, while _dev_ is the development one: though it may have glitches, it generally works well, and has new features.  The former is used by default;
 * use a secure HTTPS connection, enabled by default.
 
-![Settings page](https://raw.github.com/anaconda/NewsBlur-Counter/master/Screenshot_settings.png "Settings page")
+![Settings page](https://raw.github.com/anaconda/NewsBlur-Counter/master/images/screenshots/settings.png "Settings page")
 
 ## Notifications
-![Notification: you're logged out!](https://raw.github.com/anaconda/NewsBlur-Counter/master/Screenshot_notification.png "Notification: you're logged out")
+![Notification: you're logged out!](https://raw.github.com/anaconda/NewsBlur-Counter/master/images/screenshots/notification.png "Notification: you're logged out")
 
 This extension uses the Web Notifications API to send notifications to the Notification Center on Mountain Lion for the following events:
 
