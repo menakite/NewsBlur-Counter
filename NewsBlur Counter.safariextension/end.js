@@ -4,7 +4,7 @@
  * Override 'O' keyboard shortcut so that it actually opens a new background tab.
  */
 function keypressHandler(event) {
-    if (window.location.href.indexOf('newsblur.com/site/') !== -1 && event.which === 'o'.charCodeAt(0) && !event.ctrlKey && !event.metaKey) {
+    if (window.location.href.indexOf('newsblur.com/') !== -1 && event.which === 'o'.charCodeAt(0) && !event.ctrlKey && !event.metaKey) {
         var tag = event.target.tagName;
         if (tag !== 'INPUT' && tag !== 'SELECT' && tag !== 'TEXTAREA') {
             var storyLink = document.querySelector('div.NB-selected > a.story_title');
