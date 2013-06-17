@@ -5,7 +5,7 @@
         <script>
             function commandHandler(event) {
                 if (event.command === 'nbcounter') {
-                    openUrlInBackground(getSite(), true);
+                    openUrlInBackground(getSite());
                 }
             }
 
@@ -13,27 +13,19 @@
                 return (safari.extension.settings.useHttps ? 'https' : 'http') + '://' + safari.extension.settings.site;
             }
 
-            function messageHandler(event) {
-                if (event.name === 'openStoryInBackground') {
-                    openUrlInBackground(event.message, false);
-                }
-            }
-
 	    // This function, slightly refactored, comes from the GReader extension, see http://rafeed.me/safari-extensions/greader/
-            function openUrlInBackground(url, fromToolbar) {
-                if (fromToolbar) {
-                    for (var win in safari.application.browserWindows) {
-                        for (var tab in safari.application.browserWindows[win].tabs) {
-                            if (safari.application.browserWindows[win].tabs[tab].url && /https?:\/\/(dev\.|www\.)?newsblur\.com/.test(safari.application.browserWindows[win].tabs[tab].url)) {
-                                safari.application.browserWindows[win].tabs[tab].url = url;
-                                return;
-                            }
-                        }
-
-                        if (!safari.application.activeBrowserWindow.activeTab.url) {
-                            safari.application.activeBrowserWindow.activeTab.url = url;
+            function openUrlInBackground(url) {
+                for (var win in safari.application.browserWindows) {
+                    for (var tab in safari.application.browserWindows[win].tabs) {
+                        if (safari.application.browserWindows[win].tabs[tab].url && /https?:\/\/(dev\.|www\.)?newsblur\.com/.test(safari.application.browserWindows[win].tabs[tab].url)) {
+                            safari.application.browserWindows[win].tabs[tab].url = url;
                             return;
                         }
+                    }
+
+                    if (!safari.application.activeBrowserWindow.activeTab.url) {
+                        safari.application.activeBrowserWindow.activeTab.url = url;
+                        return;
                     }
                 }
 
@@ -147,7 +139,6 @@
             var unreadStories = {ps: 0, nt: 0, ng: 0};
 
             safari.application.addEventListener('command', commandHandler, false);
-            safari.application.addEventListener('message', messageHandler, false);
             safari.application.addEventListener('validate', performValidate, false);
             safari.extension.settings.addEventListener('change', settingsChanged, false);
 

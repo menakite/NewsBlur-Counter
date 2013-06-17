@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Roberto Leandrini</string>
 	<key>Builder Version</key>
-	<string>8536.29.13</string>
+	<string>8536.30.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>NewsBlur Counter</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -41,15 +41,10 @@
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
-		<dict>
-			<key>End</key>
-			<array>
-				<string>end.js</string>
-			</array>
-		</dict>
+		<dict/>
 	</dict>
 	<key>Description</key>
-	<string>Shows unread NewsBlur stories in the toolbar &amp; makes "o" shortcut actually open a tab in background.</string>
+	<string>Shows unread NewsBlur stories in the toolbar</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
