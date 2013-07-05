@@ -76,7 +76,7 @@
                         } else if (!loginNeededNotified) {
                             loginNeededNotified = sendNotification('login');
                         }
-                    } else if ((this.status === 502 || this.status === 503 || this.status === 504) && !isDownNotified) {
+                    } else if ((this.status === 500 || this.status === 502 || this.status === 503 || this.status === 504) && !isDownNotified) {
                         isDownNotified = sendNotification('down');
                     }
                 }
