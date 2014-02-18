@@ -3,18 +3,21 @@
     <head>
         <title>NewsBlur Counter</title>
         <script>
-            function commandHandler(event) {
-                if (event.command === 'nbcounter') {
-                    openUrlInBackground(getSite());
-                }
-            }
+            var updater;
+            var isDownNotified = false;
+            var loginNeededNotified = false;
+            var unreadStories = {ps: 0, nt: 0, ng: 0};
 
             function getSite() {
+                'use strict';
+
                 return (safari.extension.settings.useHttps ? 'https' : 'http') + '://' + safari.extension.settings.site;
             }
 
-	    // This function, slightly refactored, comes from the GReader extension, see http://rafeed.me/safari-extensions/greader/
+            // This function, slightly refactored, comes from the GReader extension, see http://rafeed.me/safari-extensions/greader/
             function openUrlInBackground(url) {
+                'use strict';
+
                 for (var win in safari.application.browserWindows) {
                     for (var tab in safari.application.browserWindows[win].tabs) {
                         if (safari.application.browserWindows[win].tabs[tab].url && /https?:\/\/(dev\.|www\.)?newsblur\.com/.test(safari.application.browserWindows[win].tabs[tab].url)) {
@@ -32,7 +35,17 @@
                 safari.application.activeBrowserWindow.openTab('background').url = url;
             }
 
+            function commandHandler(event) {
+                'use strict';
+
+                if (event.command === 'nbcounter') {
+                    openUrlInBackground(getSite());
+                }
+            }
+
             function performValidate(event) {
+                'use strict';
+
                 if (event.command === 'nbcounter') {
                     var count;
 
@@ -52,44 +65,9 @@
                 }
             }
 
-            function refreshFeeds() {
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', getSite() + '/reader/refresh_feeds');
-                xhr.onload = function() {
-                    if (this.status === 200) {
-                        isDownNotified = false;
-                        var data = JSON.parse(xhr.responseText);
-
-                        if (data['authenticated']) {
-                            loginNeededNotified = false;
-                            var feeds = data['feeds'];
-                            var count = {ps: 0, nt: 0, ng: 0};
-
-                            for (var i in feeds) {
-                                count.ps += feeds[i].ps;
-                                count.nt += feeds[i].nt;
-                                count.ng += feeds[i].ng;
-                            }
-
-                            unreadStories = count;
-                            validateToolbarItems();
-                        } else if (!loginNeededNotified) {
-                            loginNeededNotified = sendNotification('login');
-                        }
-                    } else if ((this.status === 500 || this.status === 502 || this.status === 503 || this.status === 504) && !isDownNotified) {
-                        isDownNotified = sendNotification('down');
-                    }
-                }
-                xhr.onerror = function() {
-                    if (!isDownNotified) {
-                        isDownNotified = sendNotification('down');
-                    }
-                }
-
-                xhr.send();
-            }
-
             function sendNotification(type) {
+                'use strict';
+
                 if (window.Notification) {
                     var title, body;
 
@@ -112,7 +90,59 @@
                 return true;
             }
 
+            function validateToolbarItems() {
+                'use strict';
+
+                var toolbarItems = safari.extension.toolbarItems;
+                for (var i = 0; i < toolbarItems.length; ++i) {
+                    if (toolbarItems[i].identifier === 'nbcounter') {
+                        toolbarItems[i].validate();
+                    }
+                }
+            }
+
+            function refreshFeeds() {
+                'use strict';
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', getSite() + '/reader/refresh_feeds');
+                xhr.onload = function() {
+                    if (this.status === 200) {
+                        isDownNotified = false;
+                        var data = JSON.parse(xhr.responseText);
+
+                        if (data.authenticated) {
+                            loginNeededNotified = false;
+                            var feeds = data.feeds;
+                            var count = {ps: 0, nt: 0, ng: 0};
+
+                            for (var i in feeds) {
+                                count.ps += feeds[i].ps;
+                                count.nt += feeds[i].nt;
+                                count.ng += feeds[i].ng;
+                            }
+
+                            unreadStories = count;
+                            validateToolbarItems();
+                        } else if (!loginNeededNotified) {
+                            loginNeededNotified = sendNotification('login');
+                        }
+                    } else if ((this.status === 500 || this.status === 502 || this.status === 503 || this.status === 504) && !isDownNotified) {
+                        isDownNotified = sendNotification('down');
+                    }
+                };
+                xhr.onerror = function() {
+                    if (!isDownNotified) {
+                        isDownNotified = sendNotification('down');
+                    }
+                };
+
+                xhr.send();
+            }
+
             function settingsChanged(event) {
+                'use strict';
+
                 switch (event.key) {
                     case 'storiesFilter':
                         validateToolbarItems();
@@ -124,19 +154,7 @@
                 }
             }
 
-            function validateToolbarItems() {
-                var toolbarItems = safari.extension.toolbarItems;
-                for (var i = 0; i < toolbarItems.length; ++i) {
-                    if (toolbarItems[i].identifier === 'nbcounter') {
-                        toolbarItems[i].validate();
-                    }
-                }
-            }
-
-            var updater = safari.extension.globalPage.contentWindow.setInterval(refreshFeeds, safari.extension.settings.updateInterval);
-            var isDownNotified = false;
-            var loginNeededNotified = false;
-            var unreadStories = {ps: 0, nt: 0, ng: 0};
+            updater = safari.extension.globalPage.contentWindow.setInterval(refreshFeeds, safari.extension.settings.updateInterval);
 
             safari.application.addEventListener('command', commandHandler, false);
             safari.application.addEventListener('validate', performValidate, false);
