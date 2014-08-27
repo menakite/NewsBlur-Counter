@@ -7,6 +7,8 @@ NewsBlur is _a visual feed reader with intelligence_.  See [samuelclay/NewsBlur]
 
 NewsBlur Counter is a Safari extension (tested on OS X 10.8.3, Safari 6.0.3) to show how many unread NewsBlur stories you have in the toolbar.
 
+It's known to be broken on Yosemite Public Beta 2. It can be easily fixed, but you'll have to wait until I'm sure it's not a bug in Safari on Public Beta 2.
+
 By clicking on the toolbar icon, you can easily access the NewsBlur website.
 
 It also makes the "o" keyboard shortcut _actually_ open the original story in a background tab.
