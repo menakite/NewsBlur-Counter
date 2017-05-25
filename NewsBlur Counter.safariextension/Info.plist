@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Roberto Leandrini</string>
 	<key>Builder Version</key>
-	<string>8536.30.1</string>
+	<string>11601.1.50</string>
 	<key>CFBundleDisplayName</key>
 	<string>NewsBlur Counter</string>
 	<key>CFBundleIdentifier</key>
@@ -45,6 +45,8 @@
 	</dict>
 	<key>Description</key>
 	<string>Shows unread NewsBlur stories in the toolbar</string>
+	<key>DeveloperIdentifier</key>
+	<string>N7388MG9QR</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
